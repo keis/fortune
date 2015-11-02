@@ -1,0 +1,15 @@
+fortune:
+  build: fortune
+  environment:
+    FORTUNES: s3://bucket/path
+    AWS_ACCESS_KEY_ID: ...
+    AWS_SECRET_ACCESS_KEY: ...
+
+cookie:
+  build: cookie
+  links:
+    - fortune
+  ports:
+    - "8000:8000"
+  environment:
+    FORTUNE: 'http://fortune:8000'
