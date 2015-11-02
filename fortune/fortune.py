@@ -10,6 +10,11 @@ fortunes = []
 app = Flask(__name__)
 
 @app.route('/')
+def index():
+    return 'ok'
+
+
+@app.route('/fortune')
 def fortune():
     return json.dumps({
         "fortune": random.choice(fortunes)

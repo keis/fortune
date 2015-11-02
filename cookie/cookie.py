@@ -11,6 +11,11 @@ app = Flask(__name__)
 
 
 @app.route('/')
+def index():
+    return 'ok'
+
+
+@app.route('/cookie')
 def cookie():
     res = requests.get(upstream)
     fortune = res.json()['fortune']
