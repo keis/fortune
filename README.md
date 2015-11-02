@@ -1,3 +1,3 @@
 # fortunes!
 
-A silly service yielding silly HHTTG quotes
+A silly service yielding fortunes
