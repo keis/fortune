@@ -1,9 +1,9 @@
 fortune:
   build: fortune
   environment:
-    FORTUNES: s3://bucket/path
-    AWS_ACCESS_KEY_ID: ...
-    AWS_SECRET_ACCESS_KEY: ...
+    FORTUNES: s3://nobel-mesos/fortune
+    AWS_ACCESS_KEY_ID: AKIAJS4Z6ZPBUVPQTNEQ
+    AWS_SECRET_ACCESS_KEY: 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
 
 cookie:
   build: cookie
@@ -12,4 +12,4 @@ cookie:
   ports:
     - "8000:8000"
   environment:
-    FORTUNE: 'http://fortune:8000'
+    FORTUNE: 'http://fortune:8000/fortune'
