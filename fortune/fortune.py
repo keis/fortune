@@ -21,6 +21,16 @@ def fortune():
     })
 
 
+def run(app):
+    from tornado.wsgi import WSGIContainer
+    from tornado.httpserver import HTTPServer
+    from tornado.ioloop import IOLoop
+
+    http_server = HTTPServer(WSGIContainer(app))
+    http_server.listen(8000)
+    IOLoop.instance().start()
+
+
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
@@ -29,4 +39,5 @@ if __name__ == '__main__':
     with open(args.fortunes, 'rb') as p:
         data = p.read().decode('utf-8', 'ignore')
         fortunes.extend(data.split('\n%\n'))
-    app.run(host='0.0.0.0', port=8000)
+
+    run(app)
