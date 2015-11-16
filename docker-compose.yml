@@ -12,4 +12,4 @@ cookie:
   ports:
     - "8000:8000"
   environment:
-    FORTUNE: 'http://fortune:8000'
+    FORTUNE: 'http://fortune:8000/fortune'
