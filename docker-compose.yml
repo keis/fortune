@@ -1,9 +1,7 @@
 fortune:
   build: fortune
   environment:
-    FORTUNES: s3://bucket/path
-    AWS_ACCESS_KEY_ID: ...
-    AWS_SECRET_ACCESS_KEY: ...
+    FORTUNES: http://www.shlomifish.org/humour/fortunes/subversion
 
 cookie:
   build: cookie
