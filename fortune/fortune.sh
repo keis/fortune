@@ -7,4 +7,4 @@ if test -n "${FORTUNES}"; then
         wget "${FORTUNES}" -O /tmp/fortunes
     fi
 fi
-exec python /fortune.py /tmp/fortunes
+exec python /fortune.py ${PORT:+--port "$PORT"} ${HEALTH:+--status-port "$HEALTH"} /tmp/fortunes

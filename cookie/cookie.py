@@ -22,16 +22,21 @@ def cookie():
     return tmpl.format(fortune)
 
 
-def run(app):
+def run(app, port):
     from tornado.wsgi import WSGIContainer
     from tornado.httpserver import HTTPServer
     from tornado.ioloop import IOLoop
 
     http_server = HTTPServer(WSGIContainer(app))
-    http_server.listen(8000)
+    http_server.listen(port)
     IOLoop.instance().start()
 
 
 if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', default=8000)
+    args = parser.parse_args()
+
     upstream = os.environ['FORTUNE']
-    run(app)
+    run(app, args.port)
