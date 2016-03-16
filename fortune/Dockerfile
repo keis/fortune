@@ -8,5 +8,5 @@ RUN apt-get update && \
 COPY requirements.txt /requirements.txt
 RUN pip install -r requirements.txt
 COPY discworld /tmp/fortunes
-COPY fortune.py fortune.sh /
-CMD /fortune.sh
+COPY fortune.py application.sh /
+CMD /application.sh
