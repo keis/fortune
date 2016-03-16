@@ -22,20 +22,20 @@ def fortune():
     })
 
 
-status_app = Flask(__name__ + '_status')
+#status_app = Flask(__name__ + '_status')
 
-@status_app.route('/health')
+@app.route('/health')
 def health():
     return 'ok'
 
 
-@status_app.route('/quitquitquit', methods=['POST'])
+@app.route('/quitquitquit', methods=['POST'])
 def quit():
     logger.info('gotgotgot quitquitquit request')
     return 'ok'
 
 
-@status_app.route('/abortabortabort', methods=['POST'])
+@app.route('/abortabortabort', methods=['POST'])
 def abort():
     logger.info('got abortabortabort request')
     return 'ok'
@@ -49,8 +49,8 @@ def run(app, port, status_port):
     http_server = HTTPServer(WSGIContainer(app))
     http_server.listen(port)
 
-    status_server = HTTPServer(WSGIContainer(status_app))
-    status_server.listen(status_port)
+    #status_server = HTTPServer(WSGIContainer(status_app))
+    #status_server.listen(status_port)
 
     IOLoop.instance().start()
 
