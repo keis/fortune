@@ -62,6 +62,8 @@ if __name__ == '__main__':
     parser.add_argument('--port', default=8000)
     parser.add_argument('--status-port', default=8001)
     args = parser.parse_args()
+
+    logger.info("Fortune app is starting")
     with open(args.fortunes, 'rb') as p:
         data = p.read().decode('utf-8', 'ignore')
         fortunes.extend(data.split('\n%\n'))
