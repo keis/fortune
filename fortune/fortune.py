@@ -22,8 +22,6 @@ def fortune():
     })
 
 
-#status_app = Flask(__name__ + '_status')
-
 @app.route('/health')
 def health():
     return 'ok'
@@ -49,9 +47,6 @@ def run(app, port, status_port):
     http_server = HTTPServer(WSGIContainer(app))
     http_server.listen(port)
 
-    #status_server = HTTPServer(WSGIContainer(status_app))
-    #status_server.listen(status_port)
-
     IOLoop.instance().start()
 
 
@@ -59,8 +54,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('fortunes')
-    parser.add_argument('--port', default=8000)
-    parser.add_argument('--status-port', default=8001)
+    parser.add_argument('--port', default=8080)
     args = parser.parse_args()
 
     logger.info("Fortune app is starting")
