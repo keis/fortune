@@ -39,7 +39,7 @@ def abort():
     return 'ok'
 
 
-def run(app, port, status_port):
+def run(app, port):
     from tornado.wsgi import WSGIContainer
     from tornado.httpserver import HTTPServer
     from tornado.ioloop import IOLoop
@@ -62,4 +62,4 @@ if __name__ == '__main__':
         data = p.read().decode('utf-8', 'ignore')
         fortunes.extend(data.split('\n%\n'))
 
-    run(app, args.port, args.status_port)
+    run(app, args.port)
