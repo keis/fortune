@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import random
 import json
 import logging
@@ -17,7 +17,7 @@ def index():
 
 @app.route('/fortune')
 def fortune():
-    return json.dumps({
+    return jsonify({
         "fortune": random.choice(fortunes)
     })
 
@@ -25,6 +25,31 @@ def fortune():
 @app.route('/health')
 def health():
     return 'ok'
+
+
+@app.route('/service-metadata', methods=('GET',))
+def monks_metadata():
+    return jsonify({
+        'service_name': 'fortune',
+        'service_version': '1.0',
+        'description': 'The fortune demo application',
+        'owner': 'nobel'
+    })
+
+
+@app.route('/monks/healthcheck', methods=('GET',))
+def monks_healthcheck():
+    return jsonify({
+        'healthy': [
+            {
+                'name': 'dummy-check',
+                'type': 'SELF',
+                'healthy': True,
+                'actionable': True
+            }
+        ],
+        'unhealthy': []
+    })
 
 
 @app.route('/quitquitquit', methods=['POST'])
