@@ -10,3 +10,4 @@ RUN pip install -r requirements.txt
 COPY discworld /tmp/fortunes
 COPY fortune.py application.sh /
 CMD /application.sh
+EXPOSE 8080
