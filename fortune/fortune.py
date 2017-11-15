@@ -1,6 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, Response, jsonify
+from prometheus_client import Gauge, generate_latest, CONTENT_TYPE_LATEST
 import random
-import json
 import logging
 
 logging.basicConfig(level='DEBUG')
@@ -9,6 +9,11 @@ logger = logging.getLogger('fortune')
 fortunes = []
 
 app = Flask(__name__)
+
+Healthy = Gauge(
+    'healthy', 'service healthchecks',
+    ['name'])
+
 
 @app.route('/')
 def index():
@@ -25,6 +30,16 @@ def fortune():
 @app.route('/health')
 def health():
     return 'ok'
+
+
+@app.route('/metrics')
+def metrics():
+    for name in ('flow_emitter', 'phase_shifter', 'ouija'):
+        Healthy.labels(name).set(1 if random.random() < 0.95 else 0)
+    return Response(
+        content_type=CONTENT_TYPE_LATEST,
+        response=generate_latest(),
+    )
 
 
 @app.route('/service-metadata', methods=('GET',))

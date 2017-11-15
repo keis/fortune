@@ -1,3 +1,4 @@
 flask
 tornado
 awscli
+prometheus-client
