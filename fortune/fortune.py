@@ -27,6 +27,11 @@ def fortune():
     })
 
 
+@app.route('/ready')
+def ready():
+    return 'ok'
+
+
 @app.route('/health')
 def health():
     return 'ok'
