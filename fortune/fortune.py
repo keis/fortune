@@ -2,11 +2,13 @@ from flask import Flask, Response, jsonify
 from prometheus_client import Gauge, generate_latest, CONTENT_TYPE_LATEST
 import random
 import logging
+from itertools import repeat, chain
 
 logging.basicConfig(level='DEBUG')
 logger = logging.getLogger('fortune')
 
 fortunes = []
+statuses = chain(repeat('running', 10), repeat('ready'))
 
 app = Flask(__name__)
 
@@ -27,9 +29,9 @@ def fortune():
     })
 
 
-@app.route('/ready')
+@app.route('/starbug-status')
 def ready():
-    return 'ok'
+    return jsonify({'status': next(statuses)})
 
 
 @app.route('/health')
