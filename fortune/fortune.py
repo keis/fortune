@@ -1,14 +1,17 @@
-from flask import Flask, Response, jsonify
-from prometheus_client import Gauge, generate_latest, CONTENT_TYPE_LATEST
-import random
 import logging
-from itertools import repeat, chain
+import os
+import random
+from itertools import chain, repeat
+
+from flask import Flask, Response, jsonify
+from prometheus_client import CONTENT_TYPE_LATEST, Gauge, generate_latest
 
 logging.basicConfig(level='DEBUG')
 logger = logging.getLogger('fortune')
 
+READY_DELAY = int(os.getenv('READY_DELAY', 10))
 fortunes = []
-statuses = chain(repeat('running', 10), repeat('ready'))
+statuses = chain(repeat('running', READY_DELAY), repeat('ready'))
 
 app = Flask(__name__)
 
