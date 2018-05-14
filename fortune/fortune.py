@@ -17,7 +17,28 @@ app = Flask(__name__)
 
 Healthy = Gauge(
     'healthy', 'service healthchecks',
-    ['name'])
+    ['name', 'actionable', 'dependentOn', 'type'])
+
+healthchecks = [
+    {
+        'name': 'flow_emitter',
+        'actionable': 'true',
+        'dependentOn': '',
+        'type': 'SELF'
+    },
+    {
+        'name': 'phase_shifter',
+        'actionable': 'true',
+        'dependentOn': '',
+        'type': 'SELF'
+    },
+    {
+        'name': 'ouija',
+        'actionable': 'false',
+        'dependentOn': 'ghosts',
+        'type': 'EXTERNAL_DEPENDENCY'
+    },
+]
 
 
 @app.route('/')
@@ -44,8 +65,8 @@ def health():
 
 @app.route('/metrics')
 def metrics():
-    for name in ('flow_emitter', 'phase_shifter', 'ouija'):
-        Healthy.labels(name).set(1 if random.random() < 0.95 else 0)
+    for hc in healthchecks:
+        Healthy.labels(**hc).set(0 if random.random() < 0.95 else 1)
     return Response(
         content_type=CONTENT_TYPE_LATEST,
         response=generate_latest(),
